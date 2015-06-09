@@ -25,6 +25,9 @@ Specify a custom build path. If not given the sass and cache files will be compi
 #### outputFile
 Specify a custom output filename. If not specified the sass and cache files will be compiled into 'out.css' and 'out.css.map'
 
+#### bundler
+Use the bundled version of sass.
+
 
 ### Simple example
 

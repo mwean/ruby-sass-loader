@@ -53,7 +53,16 @@ module.exports = function(content) {
 	var outputPath = query.outputFile ?  path.normalize(buildPath + '/' + query.outputFile) : buildPath + (Math.random(0, 1000) + path.parse(this.resource).name) + '.css' ;
 	var outputMapPath = outputPath + '.map';
 	args = args.concat(['--cache-location=' + cachePath, this.resource, outputPath]);
-	var sass = process.platform === "win32" ? "sass.bat" : "sass";
+
+	if (process.platform === "win32") {
+		var sass = "sass.bat";
+	} else if (query.bundler) {
+		var sass = "bundle";
+		args.unshift("exec", "sass");
+	} else {
+		var sass = "sass";
+	}
+
 	child_process.execFile(sass, args, {cwd: this.context}, function(err, stdout, stderr) {
 		if(err) {
 			callback(err);
